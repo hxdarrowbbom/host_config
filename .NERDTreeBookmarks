@@ -1,0 +1,4 @@
+vim ~/.vim_runtime
+bash ~/.bash_runtime
+
+tl ~/g17/project/trunk/logic
