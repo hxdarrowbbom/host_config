@@ -20,9 +20,14 @@ Plugin 'tpope/vim-commentary'
 Plugin 'dense-analysis/ale'
 Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'majutsushi/tagbar'
+Plugin 'skywind3000/vim-preview'
+Plugin 'skywind3000/gutentags_plus'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'tomasr/molokai'
 
 Plugin 'preservim/nerdtree'
-" Plugin 'ycm-core/YouCompleteMe'
+Plugin 'ycm-core/YouCompleteMe'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:

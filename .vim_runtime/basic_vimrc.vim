@@ -1,6 +1,11 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => .vimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" pathogen
+let s:vim_runtime = expand('<sfile>:p:h')."/"
+call pathogen#infect(s:vim_runtime.'vbundle/{}')
+call pathogen#helptags()
+
 " Sets how many lines of history VIM has to remember
 set history=500
 
@@ -13,11 +18,11 @@ set autoread
 au FocusGained,BufEnter * checktime
 
 " With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
 let mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
+nmap <leader>q :q<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
@@ -85,38 +90,11 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Properly disable sound on errors on MacVim
-if has("gui_macvim")
-    autocmd GUIEnter * set vb t_vb=
-endif
-
-
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-
 " Enable syntax highlighting
 syntax enable 
-
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
-
-try
-    colorscheme desert
-catch
-endtry
-
-set background=dark
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -196,19 +174,6 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ \ Line:\ %l\ \ Column:\ %c
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-endif
-
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
@@ -237,15 +202,11 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
-" Colorscheme
-" set background=dark
-" colorscheme peaksea
-
 " Fast editing and reloading of vimrc configs
 autocmd! bufwritepost ~/.vim_runtime/basic_vimrc.vim source ~/.vim_runtime/basic_vimrc.vim
 
 " Turn persistent undo on 
-set undodir=~/.vim_runtime/temp_dirs/undodir
+set undodir=~/.vim_runtime/undodir
 set undofile
 
 cnoremap <C-A>		<Home>
@@ -347,7 +308,8 @@ set cscopeprg="gtags-cscope"
 
 " 告诉gtags对远程支持的6中语音使用native分析器,对其它语言使用pygments
 let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '${HOME}/install/share/gtags/gtags.conf'
+" 注意这里得用绝对路径，不能用${HOME}，这是.sh
+let $GTAGSCONF = '/home/huangxing02/install/share/gtags/gtags.conf'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => plugins
@@ -386,7 +348,6 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 " 如果使用 universal ctags 需要增加下面一行, 老的Exuberant-ctags不能有output-format
 " let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-
 " 禁用 gutentags 自动加载 gtags 数据库的行为
 let g:gutentags_auto_add_gtags_cscope = 0
 " 禁用原始的key_map, 下面自己定义
@@ -405,13 +366,7 @@ noremap <silent> <leader>cp :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
 noremap <silent> <leader>ci :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
 " 查找变量赋值地方
 noremap <silent> <leader>ca :GscopeFind a <C-R><C-W><cr>
-
 " $gutentags配置
-
-
-" Preview快捷键
-noremap <leader>ps :PreviewSignature!<cr>
-" inoremap <leader>ps <c-\><c-o>:PreviewSignature!<cr> 这个我不行
 
 " terminal-help
 tnoremap <C-H> <c-\><c-n><c-w>h
@@ -423,7 +378,7 @@ tnoremap <C--> <c-\><c-n>"0pa
 nnoremap <silent><C-t> :call TerminalToggle()<cr>
 tnoremap <silent><C-t> <c-\><c-n>:call TerminalToggle()<cr>
 
-" ^Ack
+" Ack
 if executable('ag')
   let g:ackprg = 'ag --vimgrep --smart-case'
 endif
@@ -464,29 +419,30 @@ let g:ale_linters = {
 
 nmap <silent> <leader>a <Plug>(ale_next_wrap)
 
-" pathogen
-let s:vim_runtime = expand('<sfile>:p:h')."/"
-call pathogen#infect(s:vim_runtime.'vbundle/{}')
-call pathogen#helptags()
+" preview
+autocmd FileType qf nnoremap <silent><buffer> o :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> O :PreviewClose<cr>
+noremap <leader>ps :PreviewSignature!<cr>
+inoremap <leader>ps <c-\><c-o>:PreviewSignature!<cr>
 
+" ycm
+highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
+highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
+" let g:ycm_filetype_whitelist = { 
+" 			\ "c":1,
+" 			\ "cpp":1, 
+" 			\ "sh":1,
+" 			\ "zsh":1,
+" 			\ "lua":1,
+" 			\ "go":1,
+" 			\ "py":1,
+" 			\ }
 
+" tagbar
+nmap <leader>tb :TagbarToggle<CR>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+" Colorscheme
+set background=dark
+set t_Co=256
+colorscheme molokai
+colorscheme desert

@@ -10,6 +10,7 @@ function UpLogicLua()
 				\ "/qxzl_remote": 6620,
 				\ "/qxzl_center": 6640,
 				\ "/bson_deep": 6650,
+				\ "/learn": 6670,
 				\ }
 	let FullPath = expand("%:p")
 	let Logic = "logic"
