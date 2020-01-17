@@ -1,3 +1,5 @@
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 HOST_DIR=${HOME}/host_config
 
 ln -s ${HOST_DIR}/.bashrc ${HOME}/.bashrc
