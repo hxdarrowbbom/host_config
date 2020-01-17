@@ -1,3 +1,6 @@
+# 密钥
+服务器用户的auth\_key存储公钥
+
 # 新建用户
 ```shell
 groupadd -r hxdarrow
