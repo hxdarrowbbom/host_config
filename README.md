@@ -1,5 +1,5 @@
 # 密钥
-服务器用户的auth\_key存储公钥
+服务器用户的auth\_key存储公钥, 注意阿里云不能有注释
 
 # 新建用户
 ```shell
@@ -22,4 +22,9 @@ https://github.com/vim/vim.git
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 
+# git push无密码
+1. 设置公钥以后，可以使用ssh协议clone远程仓库，这样就可以免密码了
+	git@github.com:yourusername/yourrepositoryname
+2. 如果已经用https协议clone到本地，就重新设置远程仓库
+	git remote set-url origin git@github.com:yourusername/yourrepositoryname.git
 
