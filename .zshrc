@@ -71,10 +71,13 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+BASH_RUNTIME=${HOME}/.bash_runtime
+# 这个需要放在前面，不然找不到env zsh
+source ${BASH_RUNTIME}/path_bashrc.sh
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-BASH_RUNTIME=${HOME}/.bash_runtime
 source ${BASH_RUNTIME}/basic_bashrc.sh
 source ${BASH_RUNTIME}/g17_config.sh
 source ${BASH_RUNTIME}/g17_bashrc.sh
