@@ -9,7 +9,7 @@ short_dir_map=(
 	["qcl"]="qxzl_center/logic" ["qce"]="qxzl_center/engine"
 	["qrl"]="qxzl_remote/logic" ["qre"]="qxzl_remote/engine"
 	["bsl"]="bson_deep/logic" ["bse"]="bson_deep/engine"
-	["lsl"]="learn/logic" ["lse"]="learn/engine"
+	["ll"]="learn/logic" ["le"]="learn/engine"
 )
 
 
@@ -18,7 +18,7 @@ short_port_map=(
 	["tl"]="6600" ["bl"]="6610" ["cl"]="6660" ["rl"]="6680"
 	["qtl"]="6630" ["qrl"]="6620" ["qcl"]="6640"
 	["bsl"]="6650"
-	["lsl"]="6670"
+	["ll"]="6670"
 )
 
 declare -A short_host_map
@@ -26,5 +26,5 @@ short_host_map=(
 	["tl"]="660" ["bl"]="661" ["cl"]="666" ["rl"]="668"
 	["qtl"]="663" ["qrl"]="662" ["qcl"]="664"
 	["bsl"]="665"
-	["lsl"]="667"
+	["ll"]="667"
 )
