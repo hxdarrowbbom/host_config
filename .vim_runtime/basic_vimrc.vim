@@ -196,12 +196,6 @@ elseif has("unix")
     set gfn=Monospace\ 11
 endif
 
-" Disable scrollbars (real hackers don't use scrollbars for navigation!)
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
-
 " Fast editing and reloading of vimrc configs
 autocmd! bufwritepost ~/.vim_runtime/basic_vimrc.vim source ~/.vim_runtime/basic_vimrc.vim
 
@@ -225,6 +219,10 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 "  Vim grep
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
 set grepprg=/bin/grep\ -nH
+
+" Always show the tablilne 
+set stal=2
+set tabline=%!CustomizedTabLine()
 
 " Returns true if paste mode is enabled
 function! HasPaste()
@@ -276,6 +274,33 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
+function! CustomizedTabLine()
+    let s = ''
+    let t = tabpagenr()
+    let i = 1
+    while i <= tabpagenr('$')
+        let buflist = tabpagebuflist(i)
+        let winnr = tabpagewinnr(i)
+        let s .= '%' . i . 'T'
+        let s .= (i == t ? '%1*' : '%2*')
+        let s .= ' '
+        let s .= i . ':'
+        let s .= '%*'
+        let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
+        let file = bufname(buflist[winnr - 1])
+        let file = fnamemodify(file, ':p:t')
+        if file == ''
+            let file = '[No Name]'
+        endif
+        let s .= file
+        let s .= ' '
+        let i = i + 1
+    endwhile
+    let s .= '%T%#TabLineFill#%='
+    let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
+    return s
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => my_config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -293,9 +318,6 @@ cnoremap <expr> %h getcmdtype( ) == ':' ? expand('%:h').'/' : '%h'
 " 视觉上下行
 noremap j gj
 noremap k gk
-
-" Tab的颜色, 远程需要删除lightline插件才行
-hi TabLineSel ctermfg=Yellow ctermbg=Black
 
 " 水平线
 set cursorline
@@ -379,12 +401,9 @@ nnoremap <silent><C-t> :call TerminalToggle()<cr>
 tnoremap <silent><C-t> <c-\><c-n>:call TerminalToggle()<cr>
 
 " Ack
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep --smart-case'
-endif
 
 " Open Ack and put the cursor in the right position
-map <leader>g :Ack 
+map <leader>g :Ack!<Space>
 
 " YankStack
 let g:yankstack_yank_keys = ['y', 'd']
@@ -411,13 +430,13 @@ map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
 
 " Ale (syntax checker and linter)
-let g:ale_linters = {
-\   'javascript': ['jshint'],
-\   'python': ['flake8'],
-\   'go': ['go', 'golint', 'errcheck']
-\}
+" let g:ale_linters = {
+" \   'javascript': ['jshint'],
+" \   'python': ['flake8'],
+" \   'go': ['go', 'golint', 'errcheck']
+" \}
 
-nmap <silent> <leader>a <Plug>(ale_next_wrap)
+" nmap <silent> <leader>a <Plug>(ale_next_wrap)
 
 " preview
 autocmd FileType qf nnoremap <silent><buffer> o :PreviewQuickfix<cr>
@@ -426,8 +445,8 @@ noremap <leader>ps :PreviewSignature!<cr>
 inoremap <leader>ps <c-\><c-o>:PreviewSignature!<cr>
 
 " ycm
-highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
-highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
+highlight PMenu ctermfg=0 ctermbg=242
+highlight PMenuSel ctermfg=242 ctermbg=8
 " let g:ycm_filetype_whitelist = { 
 " 			\ "c":1,
 " 			\ "cpp":1, 
@@ -446,3 +465,6 @@ set background=dark
 set t_Co=256
 colorscheme molokai
 " colorscheme desert
+
+" surround
+nmap rs  <Plug>Csurround
