@@ -98,6 +98,9 @@ syntax enable
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
+set fileencodings=ucs-bom,utf-8,default,latin1
+set fileencoding=utf8
+set termencoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -167,9 +170,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " Always show the status line
 set laststatus=2
-
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ \ Line:\ %l\ \ Column:\ %c
+" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ \ Line:\ %l\ \ Column:\ %c
 
 " Remap VIM 0 to first non-blank character
 map 0 ^
@@ -222,7 +224,6 @@ set grepprg=/bin/grep\ -nH
 
 " Always show the tablilne 
 set stal=2
-set tabline=%!CustomizedTabLine()
 
 " Returns true if paste mode is enabled
 function! HasPaste()
@@ -272,33 +273,6 @@ function! VisualSelection(direction, extra_filter) range
 
     let @/ = l:pattern
     let @" = l:saved_reg
-endfunction
-
-function! CustomizedTabLine()
-    let s = ''
-    let t = tabpagenr()
-    let i = 1
-    while i <= tabpagenr('$')
-        let buflist = tabpagebuflist(i)
-        let winnr = tabpagewinnr(i)
-        let s .= '%' . i . 'T'
-        let s .= (i == t ? '%1*' : '%2*')
-        let s .= ' '
-        let s .= i . ':'
-        let s .= '%*'
-        let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
-        let file = bufname(buflist[winnr - 1])
-        let file = fnamemodify(file, ':p:t')
-        if file == ''
-            let file = '[No Name]'
-        endif
-        let s .= file
-        let s .= ' '
-        let i = i + 1
-    endwhile
-    let s .= '%T%#TabLineFill#%='
-    let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
-    return s
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -468,3 +442,25 @@ colorscheme molokai
 
 " surround
 nmap rs  <Plug>Csurround
+
+" air-line
+" 状态栏
+" 不要文件名
+let g:airline_section_c = ""
+" 不要文件类型
+let g:airline_section_x = ""
+let g:airline_section_warning = ""
+let g:airline_section_error = ""
+" 窗口小的时候不要文件编码
+if airline#util#winwidth() > 79
+    let g:airline_section_y = airline#section#create_right(['ffenc'])
+else
+	let g:airline_section_y = ""
+endif
+let g:airline_section_z = airline#section#create(['%3p%%'])
+" tab栏
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tabs = 0
+let g:airline#extensions#tabline#show_tab_count = 0
+let g:airline#extensions#tabline#show_splits = 0

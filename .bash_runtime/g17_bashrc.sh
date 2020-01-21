@@ -32,7 +32,7 @@ function svnci()
 	echo "今天你@QA了吗？[y/n]"
 	read res
 	if [[ ${res} == "y" ]]; then
-		svn st | grep "^[AM]" | awk '{print \$2}' | xargs svn ci -m ${1}
+		# svn st | grep "^[AM]" | awk '{print \$2}' | xargs svn ci -m ${1}
 	else
 		echo "nono，这不行喔"
 	fi
