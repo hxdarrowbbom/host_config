@@ -404,13 +404,19 @@ map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
 
 " Ale (syntax checker and linter)
-" let g:ale_linters = {
-" \   'javascript': ['jshint'],
-" \   'python': ['flake8'],
-" \   'go': ['go', 'golint', 'errcheck']
-" \}
+let g:ale_c_gcc_options = '-Wall -std=c11'
+	\ . '-I **/include'
 
-" nmap <silent> <leader>a <Plug>(ale_next_wrap)
+let g:ale_cpp_gcc_options = '-Wall -std=c++14'
+	\ . '-I **/include'
+
+let g:ale_linters = {
+\ 'javascript': ['jshint'],
+\ 'python': ['flake8'],
+\ 'go': ['go', 'golint', 'errcheck'],
+\ 'lua': ['luac']
+\ }
+nmap <silent> <leader>a <Plug>(ale_next_wrap)
 
 " preview
 autocmd FileType qf nnoremap <silent><buffer> o :PreviewQuickfix<cr>
@@ -421,15 +427,17 @@ inoremap <leader>ps <c-\><c-o>:PreviewSignature!<cr>
 " ycm
 highlight PMenu ctermfg=0 ctermbg=242
 highlight PMenuSel ctermfg=242 ctermbg=8
-" let g:ycm_filetype_whitelist = { 
-" 			\ "c":1,
-" 			\ "cpp":1, 
-" 			\ "sh":1,
-" 			\ "zsh":1,
-" 			\ "lua":1,
-" 			\ "go":1,
-" 			\ "py":1,
-" 			\ }
+" 禁用YCM自带语法检查
+let g:ycm_show_diagnostics_ui = 0  
+let g:ycm_filetype_whitelist = { 
+			\ "c":1,
+			\ "cpp":1, 
+			\ "sh":1,
+			\ "zsh":1,
+			\ "lua":1,
+			\ "go":1,
+			\ "py":1,
+			\ }
 
 " tagbar
 nmap <leader>tb :TagbarToggle<CR>
@@ -458,9 +466,8 @@ else
 	let g:airline_section_y = ""
 endif
 let g:airline_section_z = airline#section#create(['%3p%%'])
-" tab栏
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tabs = 0
-let g:airline#extensions#tabline#show_tab_count = 0
-let g:airline#extensions#tabline#show_splits = 0
+
+"tabline
+hi TabLine      ctermfg=190  ctermbg=238     cterm=NONE
+hi TabLineFill  ctermfg=Black  ctermbg=White     cterm=NONE
+hi TabLineSel   ctermfg=238  ctermbg=190  cterm=NONE

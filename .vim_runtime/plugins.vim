@@ -28,6 +28,7 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'tomasr/molokai'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
+Plugin 'mkitt/tabline.vim'
 
 Plugin 'preservim/nerdtree'
 Plugin 'ycm-core/YouCompleteMe'
