@@ -13,3 +13,4 @@ loadsrc()
 		source ${HOME}/.bashrc
 	fi
 }
+
