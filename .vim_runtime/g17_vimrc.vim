@@ -3,14 +3,12 @@ function UpLogicLua()
 	:w!
 	let Dir2Port = {
 				\ "/trunk": 6600,
-				\ "/beta": 6610,
-				\ "/center": 6660,
-				\ "/remote": 6680,
-				\ "/qxzl_trunk": 6630,
-				\ "/qxzl_remote": 6620,
-				\ "/qxzl_center": 6640,
+				\ "/center": 6610,
+				\ "/remote": 6620,
+				\ "/beta": 6630,
+				\ "/qxzl_trunk": 6640,
 				\ "/bson_deep": 6650,
-				\ "/learn": 6670,
+				\ "/learn": 6660,
 				\ }
 	let FullPath = expand("%:p")
 	let Logic = "logic"
