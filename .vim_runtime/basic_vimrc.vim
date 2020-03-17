@@ -309,7 +309,8 @@ set cscopeprg="gtags-cscope"
 " 告诉gtags对远程支持的6中语音使用native分析器,对其它语言使用pygments
 let $GTAGSLABEL = 'native-pygments'
 " 注意这里得用绝对路径，不能用${HOME}，这是.sh
-let $GTAGSCONF = '/home/hxdarrow/install/share/gtags/gtags.conf'
+" let $GTAGSCONF = '/home/hxdarrow/install/share/gtags/gtags.conf'
+let $GTAGSCONF = '/home/huangxing02/install/share/gtags/gtags.conf'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => plugins
