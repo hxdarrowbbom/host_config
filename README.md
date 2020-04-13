@@ -21,10 +21,11 @@ https://github.com/vim/vim.git
 
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-
 # git push无密码
 1. 设置公钥以后，可以使用ssh协议clone远程仓库，这样就可以免密码了
 	git clone ssh://git@github.com/yourusername/yourrepositoryname.git
 2. 如果已经用https协议clone到本地，就重新设置远程仓库
 	git remote set-url origin git@github.com:yourusername/yourrepositoryname.git, 下次试试前面加ssh可不可以
 
+# zsh
+1. zsh不会读取/etc/profile, 如果需要自己手动添加
