@@ -1,11 +1,10 @@
 declare -A short_dir_map
 short_dir_map=(
-	["tl"]="trunk/logic" ["te"]="trunk/engine"
-	["bl"]="beta/logic" ["be"]="beta/engine"
-	["ll"]="learn/logic" ["le"]="learn/engine"
-	["ext"]="ext"
-	["cl"]="center/logic" ["ce"]="center/engine"
-	["rl"]="remote/logic" ["re"]="remote/engine"
+	["tl"]="trunk/logic" ["te"]="trunk/engine" ["t"]="trunk"
+	["bl"]="beta/logic" ["be"]="beta/engine" ["b"]="beta"
+	["ll"]="learn/logic" ["le"]="learn/engine" ["l"]="learn"
+	["cl"]="center/logic" ["ce"]="center/engine" ["c"]="center"
+	["rl"]="remote/logic" ["re"]="remote/engine" ["r"]="remote"
 	["qtl"]="qxzl_trunk/logic" ["qte"]="qxzl_trunk/engine"
 	["bsl"]="bson_deep/logic" ["bse"]="bson_deep/engine"
 )

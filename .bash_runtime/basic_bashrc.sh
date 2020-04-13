@@ -3,6 +3,7 @@ export LC_ALL=en_US.UTF-8
 
 alias ll="ls -l -a"
 alias grep="grep --color -n"
+alias svnrevertall="svn st | grep M | awk '{print \$2}' | xargs svn revert"
 
 function loadsrc()
 {

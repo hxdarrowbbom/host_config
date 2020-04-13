@@ -12,13 +12,15 @@ function cdw()
 # nc执行代码
 function ncw()
 {
-	# 1 服务器logic缩写
-	# 2 lua_trunk
+	if [ $# -lt 2 ]; then
+		echo "usage: ncw 服务器logic缩写 lua_chunk"
+		return -1
+	fi
 	echo ls ${2} | nc -q 1 localhost ${short_port_map[${1}]}
 	echo -e "\n"
 }
 
-function greptag()
+function greplgc()
 {
 	if [ $# -lt 2 ]; then
 		echo "usage: grep tag keyword"
@@ -43,10 +45,28 @@ function greptag()
 
 # 结束掉所有的g17进程
 alias gstop="sh $HOME/g17/trunk/shell/killg17main.sh"
+# function gstop()
+# {
+# 	EPATH="$1"
+# 	who=`whoami`
+# 	for pid in `ps -eo pid,cmd -o ruser=useruser10 | grep $who | grep "g17main" |grep -v "grep"|awk -F " " '{print $1}'`
+# 	do
+# 		echo "start kill:" $pid
+# 		if [ -e "/proc/$pid/exe" ]; then
+# 			pwd_g17main=$EPATH"/g17main"
+# 			exe_g17main=`ls -l /proc/$pid/exe | grep $pwd_g17main | grep -v "grep"`
+# 			if [ "$exe_g17main" ]; then
+# 				kill -9 $pid
+# 				echo "find and kill g17main: " $pid
+# 				continue
+# 			fi
+# 		fi
+# 	done
+# }
+
 
 # svn 记住格式自己来搞把
 # alias svnadd="svn st | grep ? | awk '{print \$2}' | xargs svn add"
-# alias svnrevert="svn st | grep M | awk '{print \$2}' | xargs svn revert"
 # alias svnrmnoversion="svn st | grep ? | awk '{print \$2}' | xargs rm"
 
 # svnlog 查找附带后3前1行
@@ -59,7 +79,6 @@ function svngreplog()
 		echo "usage: svngreplog [file] target"
 		return 1;
 	fi
-	echo ${url}
 
 	if [ $# -eq 1 ]; then
 		svn log ${url} -l ${3-"50"} | grep ${1} -B 1 -A 2
