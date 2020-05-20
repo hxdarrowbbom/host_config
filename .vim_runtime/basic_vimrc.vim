@@ -112,7 +112,6 @@ set noswapfile
 
 " Be smart when using tabs ;)
 set smarttab
-
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
@@ -155,10 +154,6 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
-
 " Switch CWD to the directory of the open buffer
 map <leader>cdw :cd %:p:h<cr>:pwd<cr>
 
@@ -174,14 +169,9 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " Always show the status line
 set laststatus=2
-" Format the status line
-" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ \ Line:\ %l\ \ Column:\ %c
 
 " Remap VIM 0 to first non-blank character
 map 0 ^
-
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
 map <leader>eb :e ~/buffer<cr>
@@ -228,14 +218,6 @@ set grepprg=/bin/grep\ -nH
 
 " Always show the tablilne 
 set stal=2
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
@@ -305,7 +287,6 @@ set cursorline
 set cscopetag
 " 使用 gtags-cscope 代替 cscope
 set cscopeprg="gtags-cscope" 
-
 " 告诉gtags对远程支持的6中语音使用native分析器,对其它语言使用pygments
 let $GTAGSLABEL = 'native-pygments'
 " 注意这里得用绝对路径，不能用${HOME}，这是.sh
@@ -465,19 +446,11 @@ nmap rs  <Plug>Csurround
 
 " air-line
 " 状态栏
-" 不要文件名
-let g:airline_section_c = ""
-" 不要文件类型
 let g:airline_section_x = ""
+let g:airline_section_y = ""
+let g:airline_section_z = airline#section#create(['%3p%%'])
 let g:airline_section_warning = ""
 let g:airline_section_error = ""
-" 窗口小的时候不要文件编码
-if airline#util#winwidth() > 79
-    let g:airline_section_y = airline#section#create_right(['ffenc'])
-else
-	let g:airline_section_y = ""
-endif
-let g:airline_section_z = airline#section#create(['%3p%%'])
 
 "tabline
 hi TabLine      ctermfg=190  ctermbg=238     cterm=NONE

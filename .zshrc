@@ -29,7 +29,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -82,6 +82,8 @@ source $ZSH/oh-my-zsh.sh
 source ${BASH_RUNTIME}/basic_bashrc.sh
 source ${BASH_RUNTIME}/g17_config.sh
 source ${BASH_RUNTIME}/g17_bashrc.sh
+
+# export PS1="%(?:%{%}➜ :%{%}➜ ) %{$fg[cyan]%}%2/%{$reset_color%} $(git_prompt_info)"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

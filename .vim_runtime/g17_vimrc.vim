@@ -6,9 +6,10 @@ function UpLogicLua()
 				\ "/center": 6610,
 				\ "/remote": 6620,
 				\ "/beta": 6630,
-				\ "/qxzl_trunk": 6640,
-				\ "/bson_deep": 6650,
+				\ "/jnh2020": 6640,
 				\ "/learn": 6660,
+				\ "/reward": 6670,
+				\ "/reward_t": 6680,
 				\ }
 	let FullPath = expand("%:p")
 	let Logic = "logic"

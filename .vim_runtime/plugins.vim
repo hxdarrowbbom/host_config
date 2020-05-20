@@ -29,6 +29,8 @@ Plugin 'tomasr/molokai'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'mkitt/tabline.vim'
+" Plugin 'tpope/vim-unimpaired'
+" Plugin 'tpope/vim-surround'
 
 Plugin 'preservim/nerdtree'
 Plugin 'ycm-core/YouCompleteMe'
