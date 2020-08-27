@@ -1,9 +1,10 @@
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-alias ll="ls -l -a"
+alias ll="ls -lh -a"
 alias grep="grep -i --color=auto -n"
 alias svnrevertall="svn st | grep M | awk '{print \$2}' | xargs svn revert"
+alias dud="du -h --max-depth=1 ."
 
 function loadsrc()
 {

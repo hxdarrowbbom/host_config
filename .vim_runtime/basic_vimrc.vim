@@ -111,10 +111,13 @@ set nowb
 set noswapfile
 
 " Be smart when using tabs ;)
-set smarttab
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" set smarttab
+" 1 tab == 8 spaces
+set noexpandtab
+set softtabstop=8
+set shiftwidth=8
+set tabstop=8
+set autoindent
 
 " Linebreak on 500 characters
 set lbr
@@ -206,6 +209,7 @@ cnoremap <C-N> <Down>
 
 " 快捷输入example
 iab xdate <C-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+iab iluac --------------------------
 
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 

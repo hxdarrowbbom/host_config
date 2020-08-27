@@ -44,7 +44,7 @@ function greplgc()
 
 function greptl()
 {
-	greplgc tl "${2}"
+	greplgc tl "$@"
 }
 
 
@@ -80,16 +80,39 @@ function svngreplog()
 	# 1 要查询的子文件或文件夹，必须从Info的URL开始算
 	# 2 grep的目标
 	url=$(svn info | grep URL | head -n 1 | awk "{print \$2}")
-	if [ $# -lt 1 ]; then
-		echo "usage: svngreplog [file] target count"
+	if [ $# -lt 2 ]; then
+		echo "usage: svngreplog target count(0) [file]"
 		return 1;
 	fi
 
+	if [ ${2} -eq "0" ]; then
+		ARG="--stop-on-copy"
+	else
+		ARG="-l ${2}"
+	fi
+
 	if [ $# -eq 1 ]; then
-		svn log ${url} -l ${2-"50"} | grep ${1} -B 1 -A 2
+		svn log ${url} ${ARG} | grep ${1} -B 1 -A 3
 	fi
 
 	if [ $# -eq 2 ]; then
-		svn log ${url}/${1} -l ${3-"10"} | grep ${2} -B 1 -A 2
+		svn log ${url} ${ARG} | grep ${1} -B 1 -A 3
 	fi
+
+	if [ $# -eq 3 ]; then
+		svn log ${url}/${3} ${ARG} | grep ${2} -B 1 -A 3
+	fi
+}
+
+function svnverbose()
+{
+	# 1 要查询的子文件或文件夹，必须从Info的URL开始算
+	# 2 grep的目标
+	if [ $# -lt 1 ]; then
+		echo "usage: svnverbose target"
+		return 1;
+	fi
+	# svn log --stop-on-copy | /bin/grep ${1} | awk '{print $1}' | xargs svn log . --verbose -r > a.txt
+	svn log --stop-on-copy | /bin/grep ${1} | awk '{print $1}' > verbose_tmp1.txt
+	lua verbose.lua
 }
